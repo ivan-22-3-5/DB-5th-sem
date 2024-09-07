@@ -14,7 +14,11 @@ class FileReader(ABC):
 
 
 class TxtReader(FileReader):
+    def __init__(self, file: Path, format: tuple[str, ...], delimiter: str = ','):
+        super().__init__(file, format)
+        self._delimiter = delimiter
+
     def read_lines(self) -> Generator[dict, None, None]:
         with open(self._file) as f:
             while line := f.readline():
-                yield {k: v for k, v in zip(self._format, line.strip().split(','))}
+                yield {k: v for k, v in zip(self._format, line.strip().split(self._delimiter))}
