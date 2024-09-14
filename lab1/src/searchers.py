@@ -7,6 +7,8 @@ class FileSearcher:
 
     def query(self, query: dict, format: tuple[str, ...]) -> list:
         result: list = []
+        if not query:
+            return result
         for obj in self._reader.read_lines():
             if all(obj.get(query_key) == query_value for query_key, query_value in query.items()):
                 filtered_obj = {k: v for k, v in obj.items() if k in format}
