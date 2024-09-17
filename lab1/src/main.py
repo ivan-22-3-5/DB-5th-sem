@@ -28,12 +28,16 @@ def main():
 
     txt_reader = TxtReader(file, file_format)
     searcher = FileSearcher(txt_reader)
+
     result = searcher.query(query, result_format)
     if not result:
         print("Nothing found")
         return
-    for part in list(result[i*50:(i+1)*50] for i in range(0, len(result) // 50+1)):
+
+    for i in range(0, len(result), 50):
+        part = result[i:i + 50]
         print(get_table(part))
+
         if input(f"Found {len(result)}; Print more? (y/n): ").lower() != 'y':
             break
 
