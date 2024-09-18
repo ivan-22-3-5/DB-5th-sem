@@ -21,7 +21,7 @@ def build_format(format_string: str, *, contractions: dict[str, str]) -> tuple[s
     if not re.match(pattern, format_string):
         raise ValueError('Wrong format string format')
     for field in format_string.split(','):
-        if field in contractions:
+        if field.strip() in contractions:
             result.append(contractions[field.strip()])
     return tuple(result)
 
