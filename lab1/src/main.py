@@ -1,3 +1,4 @@
+from datetime import datetime
 from pathlib import Path
 
 from src import texts
@@ -29,11 +30,15 @@ def main():
     txt_reader = TxtReader(file, file_format)
     searcher = FileSearcher(txt_reader)
 
+    start_time = datetime.now()
     result = searcher.query(query, result_format)
+    end_time = datetime.now()
+
     if not result:
         print("Nothing found")
         return
 
+    print(f"Time elapsed: {end_time - start_time}")
     for i in range(0, len(result), 50):
         part = result[i:i + 50]
         print(get_table(part))
