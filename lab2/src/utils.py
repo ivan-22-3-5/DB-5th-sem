@@ -32,8 +32,11 @@ def join_results(first_query_result: list[dict[str, str]],
                  *, join_by: str) -> list[dict[str, str]]:
     result: list[dict[str, str]] = []
     for first, second in product(first_query_result, second_query_result):
-        if first[join_by] == second[join_by]:
-            result.append({**first, **second})
+        try:
+            if first[join_by] == second[join_by]:
+                result.append({**first, **second})
+        except KeyError:
+            pass
     return result
 
 
