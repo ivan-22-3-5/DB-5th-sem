@@ -64,12 +64,12 @@ def main():
         return
 
     print(f"Time elapsed: {end_time - start_time}")
-
-    for i in range(0, len(result), 20):
-        part = result[i:i + 20]
+    pagination = 20
+    for i in range(0, len(result), pagination):
+        part = result[i:i + pagination]
         print(get_table(part, result_format))
 
-        if input(f"Found {len(result)}; Print more? (y/n): ").lower() != 'y':
+        if len(part) < pagination or input(f"Found {len(result)}; Print more? (y/n): ").lower() != 'y':
             break
 
 
